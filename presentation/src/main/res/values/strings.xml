@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">iTunesAlbumSearch</string>
+    <string name="tracks">Tracks</string>
+    <string name="dollar">$</string>
+    <string name="no_items">There is no items</string>
+    <string name="divider">" | "</string>
+</resources>

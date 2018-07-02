@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image_small_size">60dp</dimen>
+    <dimen name="image_medium_size">100dp</dimen>
+    <dimen name="image_margin" >5dp</dimen>
+    <dimen name="text_space">5sp</dimen>
+    <dimen name="price_margin">25dp</dimen>
+    <dimen name="spinkit_padding">10dp</dimen>
+    <dimen name="layout_margin">10dp</dimen>
+</resources>
