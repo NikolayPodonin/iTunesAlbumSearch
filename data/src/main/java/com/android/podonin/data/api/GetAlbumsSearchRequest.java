@@ -6,7 +6,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
 
+/**
+ * Interface for get albums by query with Retrofit2.
+ */
 public interface GetAlbumsSearchRequest {
+    String ENDPOINT = "https://itunes.apple.com/";
     String BASE_URL = "search?entity=album";
     String TERM = "term";
 

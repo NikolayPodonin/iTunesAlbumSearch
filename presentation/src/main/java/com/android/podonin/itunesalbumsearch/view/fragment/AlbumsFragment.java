@@ -1,6 +1,7 @@
 package com.android.podonin.itunesalbumsearch.view.fragment;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,18 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.podonin.data.repository.RepositoryProvider;
 import com.android.podonin.domain.interactor.albuminteractor.AlbumsUseCase;
 import com.android.podonin.domain.model.Album;
 import com.android.podonin.itunesalbumsearch.R;
 import com.android.podonin.itunesalbumsearch.adapter.AlbumsRvAdapter;
+import com.android.podonin.itunesalbumsearch.model.AlbumParcel;
 import com.android.podonin.itunesalbumsearch.navigation.FragmentNavigator;
 import com.android.podonin.itunesalbumsearch.presenter.AlbumsFragmentPresenter;
 import com.android.podonin.itunesalbumsearch.view.AlbumsFragmentView;
-import com.android.podonin.itunesalbumsearch.view.activity.ContainerActivity;
+import com.android.podonin.itunesalbumsearch.view.activity.MainActivity;
 import com.github.ybq.android.spinkit.SpinKitView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -34,14 +38,32 @@ public class AlbumsFragment extends Fragment implements AlbumsFragmentView {
         return new AlbumsFragment();
     }
 
+    private static final String ALBUM_PARCELS = "AlbumsFragment_albumParcels";
+
+    private List<AlbumParcel> mAlbumParcels = new ArrayList<>();
+
     @Nullable
     private FragmentNavigator mFragmentNavigator;
     private AlbumsFragmentPresenter mPresenter;
+
     private RecyclerView mRecyclerView;
     private AlbumsRvAdapter mAlbumsRvAdapter;
-    private SearchView mSearchView;
     private SpinKitView mSpinKitView;
     private TextView mNoItemsText;
+
+    private SearchView mSearchView;
+    private SearchView.OnQueryTextListener mQueryTextListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            mPresenter.onSearch(query);
+            return true;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
+    };
 
     @Nullable
     @Override
@@ -57,30 +79,35 @@ public class AlbumsFragment extends Fragment implements AlbumsFragmentView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mFragmentNavigator = getFragmentNavigator();
+        if (savedInstanceState != null) {
+            mAlbumParcels = savedInstanceState.getParcelableArrayList(ALBUM_PARCELS);
+        }
 
+        mFragmentNavigator = getFragmentNavigator();
+        mSearchView.setOnQueryTextListener(mQueryTextListener);
+        initRecyclerView();
+        initPresenter();
+    }
+
+    private void initPresenter() {
         AlbumsUseCase useCase = new AlbumsUseCase(
                 RepositoryProvider.provideRepository(), Schedulers.newThread(), AndroidSchedulers.mainThread());
         mPresenter = new AlbumsFragmentPresenter(this, useCase);
         mPresenter.dispatchCreate();
+        mPresenter.onSavedAlbumsRestore(mAlbumParcels);
+    }
 
+    private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAlbumsRvAdapter = new AlbumsRvAdapter();
         mAlbumsRvAdapter.setAlbumClickListener(albumId -> mPresenter.onAlbumChoose(albumId));
         mRecyclerView.setAdapter(mAlbumsRvAdapter);
+    }
 
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                mPresenter.onSearch(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(ALBUM_PARCELS, (ArrayList<? extends Parcelable>) mAlbumParcels);
     }
 
     @Override
@@ -89,8 +116,9 @@ public class AlbumsFragment extends Fragment implements AlbumsFragmentView {
         super.onDestroyView();
     }
 
+    @Nullable
     private FragmentNavigator getFragmentNavigator() {
-        ContainerActivity activity = (ContainerActivity) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         if (activity == null) {
             return null;
         }
@@ -119,7 +147,28 @@ public class AlbumsFragment extends Fragment implements AlbumsFragmentView {
     }
 
     @Override
-    public void showNextAlbum(@NonNull Album album) {
+    public void showConnectionError() {
+        Toast.makeText(getContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showHttpError() {
+        Toast.makeText(getContext(), R.string.http_error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showUnexpectedError() {
+        Toast.makeText(getContext(), R.string.unexpected_error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showAlbums(List<AlbumParcel> albums) {
+        mAlbumsRvAdapter.setData(albums);
+    }
+
+    @Override
+    public void showNextAlbum(@NonNull AlbumParcel album) {
+        mAlbumParcels.add(album);
         mAlbumsRvAdapter.addData(album);
     }
 
@@ -129,7 +178,7 @@ public class AlbumsFragment extends Fragment implements AlbumsFragmentView {
     }
 
     @Override
-    public void goToDetails(@NonNull Integer albumId) {
+    public void goToDetails(int albumId) {
         if (mFragmentNavigator == null) {
             return;
         }

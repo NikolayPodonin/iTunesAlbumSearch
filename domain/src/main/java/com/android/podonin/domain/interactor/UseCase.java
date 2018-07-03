@@ -6,6 +6,9 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
 
+/**
+ * Parent class to represent Command pattern with children.
+ */
 public abstract class UseCase<T, Params> {
     private Scheduler mExecutionThread;
     private Scheduler mPostExecutionThread;

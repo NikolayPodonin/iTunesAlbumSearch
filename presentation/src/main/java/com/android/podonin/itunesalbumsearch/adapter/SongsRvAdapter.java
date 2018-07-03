@@ -9,15 +9,22 @@ import android.widget.TextView;
 
 import com.android.podonin.domain.model.Song;
 import com.android.podonin.itunesalbumsearch.R;
+import com.android.podonin.itunesalbumsearch.model.SongParcel;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SongsRvAdapter extends RecyclerView.Adapter<SongsRvAdapter.SongViewHolder> {
 
-    List<Song> mSongs = new ArrayList<>();
+    private List<SongParcel> mSongs = new ArrayList<>();
 
-    public void addData(Song song) {
+    public void setData(List<SongParcel> songs) {
+        mSongs = songs;
+        notifyDataSetChanged();
+    }
+
+    public void addData(@NonNull SongParcel song) {
         mSongs.add(song);
         notifyItemChanged(mSongs.size() - 1);
     }
@@ -52,20 +59,10 @@ public class SongsRvAdapter extends RecyclerView.Adapter<SongsRvAdapter.SongView
             mTrackTime = itemView.findViewById(R.id.track_time_text_view);
         }
 
-        void bind(Song song) {
-            if (song.getTrackNumber() != null) {
-                mTrackNumber.setText(song.getTrackNumber().toString());
-            }
-            if (song.getTrackName() != null) {
-                mTrackName.setText(song.getTrackName());
-            }
-            if (song.getTrackTimeMillis() != null) {
-                String time = String.valueOf(
-                        (song.getTrackTimeMillis() / 1000) / 60) +
-                        ":" +
-                        (song.getTrackTimeMillis() / 1000) % 60;
-                mTrackTime.setText(time);
-            }
+        void bind(@NonNull SongParcel song) {
+            mTrackNumber.setText(song.getTrackNumber());
+            mTrackName.setText(song.getTrackName());
+            mTrackTime.setText(song.getTrackTime());
         }
     }
 }

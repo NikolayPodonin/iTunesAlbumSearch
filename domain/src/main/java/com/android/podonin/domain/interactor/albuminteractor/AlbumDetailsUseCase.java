@@ -11,6 +11,9 @@ import rx.Observable;
 import rx.Scheduler;
 import rx.functions.Func1;
 
+/**
+ * Interactor to get {@link Album} details and {@link com.android.podonin.domain.model.Song} list by albumId.
+ */
 public class AlbumDetailsUseCase extends UseCase<ITunesObject, AlbumDetailsUseCase.Params> {
     private final AlbumsRepository mRepository;
 

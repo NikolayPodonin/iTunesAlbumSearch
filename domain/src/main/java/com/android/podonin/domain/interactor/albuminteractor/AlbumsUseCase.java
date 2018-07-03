@@ -12,6 +12,9 @@ import rx.Observable;
 import rx.Scheduler;
 import rx.functions.Func1;
 
+/**
+ * Interactor for search {@link Album's} by user query.
+ */
 public class AlbumsUseCase extends UseCase<Album, AlbumsUseCase.Params> {
     private AlbumsRepository mAlbumsRepository;
 

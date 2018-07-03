@@ -6,6 +6,9 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Contains List of {@link Result}.
+ */
 public class SearchRequestResult {
 
     @SerializedName("resultCount")

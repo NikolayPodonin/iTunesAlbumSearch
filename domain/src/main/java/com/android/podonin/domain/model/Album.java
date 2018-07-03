@@ -2,11 +2,14 @@ package com.android.podonin.domain.model;
 
 import android.graphics.Bitmap;
 
+/**
+ * Album class (redundant fields are for future).
+ */
 public class Album extends ITunesObject {
     private String mWrapperType;
     private String mCollectionType;
-    private Integer mArtistId;
-    private Integer mCollectionId;
+    private int mArtistId;
+    private int mCollectionId;
     private String mArtistName;
     private String mCollectionName;
     private String mCollectionCensoredName;
@@ -16,15 +19,15 @@ public class Album extends ITunesObject {
     private Bitmap mArtwork60;
     private String mArtworkUrl100;
     private Bitmap mArtwork100;
-    private Double mCollectionPrice;
+    private double mCollectionPrice;
     private String mCollectionExplicitness;
-    private Integer mTrackCount;
+    private int mTrackCount;
     private String mCopyright;
     private String mCountry;
     private String mCurrency;
     private String mReleaseDate;
     private String mPrimaryGenreName;
-    private Integer mAmgArtistId;
+    private int mAmgArtistId;
     private String mContentAdvisoryRating;
 
 
@@ -44,19 +47,19 @@ public class Album extends ITunesObject {
         mCollectionType = collectionType;
     }
 
-    public Integer getArtistId() {
+    public int getArtistId() {
         return mArtistId;
     }
 
-    public void setArtistId(Integer artistId) {
+    public void setArtistId(int artistId) {
         mArtistId = artistId;
     }
 
-    public Integer getCollectionId() {
+    public int getCollectionId() {
         return mCollectionId;
     }
 
-    public void setCollectionId(Integer collectionId) {
+    public void setCollectionId(int collectionId) {
         mCollectionId = collectionId;
     }
 
@@ -132,11 +135,11 @@ public class Album extends ITunesObject {
         mArtwork100 = artwork100;
     }
 
-    public Double getCollectionPrice() {
+    public double getCollectionPrice() {
         return mCollectionPrice;
     }
 
-    public void setCollectionPrice(Double collectionPrice) {
+    public void setCollectionPrice(double collectionPrice) {
         mCollectionPrice = collectionPrice;
     }
 
@@ -148,11 +151,11 @@ public class Album extends ITunesObject {
         mCollectionExplicitness = collectionExplicitness;
     }
 
-    public Integer getTrackCount() {
+    public int getTrackCount() {
         return mTrackCount;
     }
 
-    public void setTrackCount(Integer trackCount) {
+    public void setTrackCount(int trackCount) {
         mTrackCount = trackCount;
     }
 
@@ -196,11 +199,11 @@ public class Album extends ITunesObject {
         mPrimaryGenreName = primaryGenreName;
     }
 
-    public Integer getAmgArtistId() {
+    public int getAmgArtistId() {
         return mAmgArtistId;
     }
 
-    public void setAmgArtistId(Integer amgArtistId) {
+    public void setAmgArtistId(int amgArtistId) {
         mAmgArtistId = amgArtistId;
     }
 

@@ -1,6 +1,5 @@
 package com.android.podonin.itunesalbumsearch.adapter;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.podonin.domain.model.Album;
 import com.android.podonin.itunesalbumsearch.R;
+import com.android.podonin.itunesalbumsearch.model.AlbumParcel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +21,15 @@ public class AlbumsRvAdapter extends RecyclerView.Adapter<AlbumsRvAdapter.AlbumV
         void onAlbumClick(Integer albumId);
     }
 
-    private List<Album> mAlbums = new ArrayList<>();
+    private List<AlbumParcel> mAlbums = new ArrayList<>();
     private OnAlbumClickListener mAlbumClickListener;
 
-    public void setData(List<Album> albums) {
+    public void setData(List<AlbumParcel> albums) {
         mAlbums = albums;
         notifyDataSetChanged();
     }
 
-    public void addData(Album album) {
+    public void addData(AlbumParcel album) {
         mAlbums.add(album);
         notifyItemChanged(mAlbums.size() - 1);
     }
@@ -69,7 +68,8 @@ public class AlbumsRvAdapter extends RecyclerView.Adapter<AlbumsRvAdapter.AlbumV
         TextView mArtistName;
         TextView mTracksCount;
         TextView mPrice;
-        Album mAlbum;
+        TextView mCurrency;
+        AlbumParcel mAlbum;
 
         AlbumViewHolder(View itemView) {
             super(itemView);
@@ -79,24 +79,21 @@ public class AlbumsRvAdapter extends RecyclerView.Adapter<AlbumsRvAdapter.AlbumV
             mArtistName = itemView.findViewById(R.id.artist_name_text_view);
             mTracksCount = itemView.findViewById(R.id.tracks_count_text_view);
             mPrice = itemView.findViewById(R.id.album_price_text_view);
+            mCurrency = itemView.findViewById(R.id.album_currency_text_view);
         }
 
-        @SuppressLint("SetTextI18n")
-        void bind(Album album) {
+        void bind(AlbumParcel album) {
             mAlbum = album;
             if (mAlbumClickListener != null) {
-                mContainer.setOnClickListener(v -> mAlbumClickListener.onAlbumClick(mAlbum.getCollectionId()));
+                mContainer.setOnClickListener(v -> mAlbumClickListener.onAlbumClick(mAlbum.getAlbumId()));
             }
-            if (mAlbum.getArtwork60() != null) {
-                mAlbumIcon.setImageBitmap(mAlbum.getArtwork60());
+            if (mAlbum.getIcon60() != null) {
+                mAlbumIcon.setImageBitmap(mAlbum.getIcon60());
             }
-            if (mAlbum.getTrackCount() != null) {
-                mTracksCount.setText(mAlbum.getTrackCount().toString());
-            }
-            if (mAlbum.getCollectionPrice() != null) {
-                mPrice.setText(mAlbum.getCollectionPrice().toString());
-            }
-            mAlbumName.setText(mAlbum.getCollectionName());
+            mPrice.setText(mAlbum.getPrice());
+            mTracksCount.setText(mAlbum.getTrackCount());
+            mCurrency.setText(mAlbum.getCurrency());
+            mAlbumName.setText(mAlbum.getAlbumName());
             mArtistName.setText(mAlbum.getArtistName());
         }
     }

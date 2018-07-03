@@ -70,14 +70,15 @@
             android:id="@+id/album_price_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Base.TextAppearance.AppCompat.Large"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
             tools:text="30"/>
         <TextView
+            android:id="@+id/album_currency_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/text_space"
             android:layout_marginStart="@dimen/text_space"
-            style="@style/Base.TextAppearance.AppCompat.Large"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
             android:text="@string/dollar"/>
 
     </LinearLayout>

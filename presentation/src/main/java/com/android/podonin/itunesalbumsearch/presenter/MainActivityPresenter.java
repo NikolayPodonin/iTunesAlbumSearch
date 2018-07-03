@@ -1,11 +1,11 @@
 package com.android.podonin.itunesalbumsearch.presenter;
 
-import com.android.podonin.itunesalbumsearch.view.ContainerActivityView;
+import com.android.podonin.itunesalbumsearch.view.MainActivityView;
 
-public class ContainerActivityPresenter {
-    private ContainerActivityView mLayoutView;
+public class MainActivityPresenter {
+    private MainActivityView mLayoutView;
 
-    public ContainerActivityPresenter(ContainerActivityView layoutView) {
+    public MainActivityPresenter(MainActivityView layoutView) {
         mLayoutView = layoutView;
     }
 

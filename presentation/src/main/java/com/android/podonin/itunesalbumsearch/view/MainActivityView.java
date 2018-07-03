@@ -1,5 +1,5 @@
 package com.android.podonin.itunesalbumsearch.view;
 
-public interface ContainerActivityView {
+public interface MainActivityView {
     void showAlbumsFragment();
 }

@@ -6,7 +6,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
 
+/**
+ * Interface for get album by id with Retrofit2.
+ */
 public interface GetAlbumSongsRequest {
+    String ENDPOINT = "https://itunes.apple.com/";
     String BASE_URL = "lookup?entity=song";
     String ID = "id";
 

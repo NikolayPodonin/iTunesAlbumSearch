@@ -1,5 +1,9 @@
 package com.android.podonin.data.repository;
 
+
+/**
+ * Provide {@link AlbumsRepositoryImpl} to were it needed.
+ */
 public class RepositoryProvider {
     private RepositoryProvider() {}
 

@@ -94,31 +94,31 @@
                         tools:text="USD"/>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/date_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="28 april 2017"/>
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/country_text_view"
+                        android:id="@+id/date_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="USA"/>
+                        tools:text="28 april 2017"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/divider"/>
                     <TextView
-                        android:id="@+id/copyright_text_view"
+                        android:id="@+id/country_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="(c) Release"/>
+                        tools:text="USA"/>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/copyright_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="(c) Release"/>
 
             </LinearLayout>
 

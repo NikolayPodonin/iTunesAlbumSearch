@@ -8,6 +8,9 @@ import com.android.podonin.domain.interactor.albuminteractor.AlbumDetailsUseCase
 import com.android.podonin.domain.model.Album;
 import com.android.podonin.domain.model.ITunesObject;
 import com.android.podonin.domain.model.Song;
+import com.android.podonin.itunesalbumsearch.mapping.AlbumSongMapper;
+import com.android.podonin.itunesalbumsearch.model.AlbumParcel;
+import com.android.podonin.itunesalbumsearch.model.SongParcel;
 import com.android.podonin.itunesalbumsearch.rx.ITunesObjectSubscriber;
 import com.android.podonin.itunesalbumsearch.view.AlbumDetailsFragmentView;
 
@@ -15,9 +18,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.HttpException;
 
+/**
+ * Providing albumId to interactor, handling interactor response and errors.
+ */
 public class AlbumDetailsFragmentPresenter {
     private AlbumDetailsFragmentView mFragmentView;
     private UseCase<ITunesObject, AlbumDetailsUseCase.Params> mUseCase;
@@ -28,7 +36,6 @@ public class AlbumDetailsFragmentPresenter {
         mUseCase = useCase;
     }
 
-
     public void dispatchCreate(int albumId) {
         mFragmentView.hideNoItemsText();
         mFragmentView.hideAlbumDetails();
@@ -36,65 +43,62 @@ public class AlbumDetailsFragmentPresenter {
         mUseCase.execute(new AlbumDetailsSubscriber(), new AlbumDetailsUseCase.Params(albumId));
     }
 
+    public void dispatchCreate(AlbumParcel albumParcel, List<SongParcel> songParcels) {
+        mFragmentView.hideNoItemsText();
+        mFragmentView.hideLoadingProcess();
+        mFragmentView.showAlbumDetails(albumParcel);
+        mFragmentView.showSongs(songParcels);
+    }
+
     public void dispatchDestroy() {
         mUseCase.unsubscribe();
     }
 
-    private void onGetAlbum(@NonNull Album album) {
-        mFragmentView.showAlbumDetails(
-                album.getArtwork100(),
-                album.getCollectionName(),
-                album.getArtistName(),
-                String.valueOf(album.getCollectionPrice()),
-                album.getCurrency(),
-                album.getReleaseDate() != null ?
-                        album.getReleaseDate().substring(0, 10) : null,
-                album.getCountry(),
-                album.getCopyright()
-        );
+    private void onGetAlbum(@NonNull AlbumParcel album) {
+        mFragmentView.showAlbumDetails(album);
         mFragmentView.hideLoadingProcess();
     }
 
     private void onMistake() {
         mFragmentView.hideAlbumDetails();
-        mFragmentView.hideNoItemsText();
+        mFragmentView.showNoItemsText();
     }
 
     private class AlbumDetailsSubscriber extends ITunesObjectSubscriber {
 
         @Override
-        public void onNextSong(@NotNull Song t) {
-            Log.i("HUMANS DESTROY ", "onNextSong: " + t.getTrackName());
-            mFragmentView.showNextSong(t);
+        public void onNextSong(@NotNull Song song) {
+            SongParcel songParcel = AlbumSongMapper.songMap(song);
+            mFragmentView.showNextSong(songParcel);
         }
 
         @Override
-        public void onNextAlbum(@NotNull Album t) {
-            Log.i("HUMANS DESTROY", "onNextAlbum: ");
-            onGetAlbum(t);
+        public void onNextAlbum(@NotNull Album album) {
+            AlbumParcel albumParcel = AlbumSongMapper.albumMap(album);
+            onGetAlbum(albumParcel);
         }
 
         @Override
         public void onUnexpectedError(@Nullable Throwable e) {
-            Log.i("HUMANS DESTROY", "onUnexpectedError: " + (e != null ? e.getMessage() : ""));
+            mFragmentView.showUnexpectedError();
             onMistake();
+
         }
 
         @Override
         public void onNetworkError(@NotNull IOException e) {
-            Log.i("HUMANS DESTROY", "onNetworkError: " + e.getMessage());
+            mFragmentView.showConnectionError();
             onMistake();
         }
 
         @Override
         public void onHttpError(@NotNull HttpException e) {
-            Log.i("HUMANS DESTROY", "onHttpError: " + e.message());
+            mFragmentView.showHttpError();
             onMistake();
         }
 
         @Override
         public void onCompleted() {
-            Log.i("HUMANS DESTROY", "onCompleted: ");
         }
     }
 }

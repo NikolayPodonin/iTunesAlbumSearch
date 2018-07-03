@@ -5,6 +5,9 @@ import com.android.podonin.domain.model.ITunesObject
 import com.android.podonin.domain.model.Song
 import java.lang.IllegalArgumentException
 
+/**
+ * Branching onNext to specify type of object.
+ */
 abstract class ITunesObjectSubscriber: ErrorSubscriber<ITunesObject>() {
     override fun onNext(t: ITunesObject) {
         when(t) {

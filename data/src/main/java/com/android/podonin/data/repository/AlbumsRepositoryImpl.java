@@ -1,11 +1,14 @@
 package com.android.podonin.data.repository;
 
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 
 import com.android.podonin.data.api.GetAlbumImageRequest;
 import com.android.podonin.data.api.GetAlbumSongsRequest;
 import com.android.podonin.data.api.GetAlbumsSearchRequest;
+import com.android.podonin.data.entity.Result;
 import com.android.podonin.data.mapping.EntityMapper;
+import com.android.podonin.data.retrofit.BitmapConverterFactory;
 import com.android.podonin.domain.model.Album;
 import com.android.podonin.domain.model.ITunesObject;
 import com.android.podonin.domain.repository.AlbumsRepository;
@@ -21,19 +24,16 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
+/**
+ * Represent layer between domain and iTunes server.
+ */
 public class AlbumsRepositoryImpl implements AlbumsRepository {
-    private static final String ENDPOINT = "https://itunes.apple.com/";
-
-    private static final Retrofit sRetrofit = new Retrofit.Builder()
-            .baseUrl(ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            .build();
-
     @Override
     public Observable<List<Album>> getAlbums(String term) {
+        Retrofit retrofit = getRetrofit(GetAlbumsSearchRequest.ENDPOINT,
+                GsonConverterFactory.create(new GsonBuilder().create()));
         String encodeTerm = getEncodedString(term);
-        GetAlbumsSearchRequest request = sRetrofit.create(GetAlbumsSearchRequest.class);
+        GetAlbumsSearchRequest request = retrofit.create(GetAlbumsSearchRequest.class);
         return request
                 .getAlbums(encodeTerm)
                 .map(EntityMapper::transformAlbumsResponse);
@@ -41,28 +41,36 @@ public class AlbumsRepositoryImpl implements AlbumsRepository {
 
     @Override
     public Observable<List<ITunesObject>> getAlbumSongs(int albumId) {
-        GetAlbumSongsRequest request = sRetrofit.create(GetAlbumSongsRequest.class);
+        Retrofit retrofit = getRetrofit(GetAlbumSongsRequest.ENDPOINT,
+                GsonConverterFactory.create(new GsonBuilder().create()));
+        GetAlbumSongsRequest request = retrofit.create(GetAlbumSongsRequest.class);
         return request.getAlbumSongs(albumId)
                 .map(EntityMapper::transformSongsResponse);
     }
 
     @Override
     public Observable<Bitmap> getAlbumIcon(String url) {
-        String urlBody = url.replaceFirst("^https?://.+/", "");
+        String urlBody = url.replaceFirst("^https?://[^/]+/", "");
         String urlHead = url.replace(urlBody, "");
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(urlHead)
-                .addConverterFactory(BitmapConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
+        Retrofit retrofit = getRetrofit(urlHead, BitmapConverterFactory.create());
         GetAlbumImageRequest request = retrofit.create(GetAlbumImageRequest.class);
         return request.getAlbumImage(urlBody);
     }
 
-    private String getEncodedString(String term) {
+    @NonNull
+    private Retrofit getRetrofit(@NonNull String urlHead, @NonNull Converter.Factory converterFactory) {
+        return new Retrofit.Builder()
+                .baseUrl(urlHead)
+                .addConverterFactory(converterFactory)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+    }
+
+    @NonNull
+    private String getEncodedString(@NonNull String term) {
         String encodeTerm;
         try {
-            encodeTerm = URLEncoder.encode(term, "UTF-16");
+            encodeTerm = URLEncoder.encode(term, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             encodeTerm = term.trim().replaceAll(" +", "+").toLowerCase();
         }

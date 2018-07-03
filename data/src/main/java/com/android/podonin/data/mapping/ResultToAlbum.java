@@ -7,6 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+/**
+ * Interface for map {@link Result} to {@link Album} with MapStruct.
+ */
 @Mapper
 public interface ResultToAlbum {
     ResultToAlbum Instance = Mappers.getMapper(ResultToAlbum.class);

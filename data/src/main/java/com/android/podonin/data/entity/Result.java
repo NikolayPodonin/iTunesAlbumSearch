@@ -4,6 +4,10 @@ package com.android.podonin.data.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class represent all data we get from iTunes with albums and songs requests.
+ */
+
 public class Result {
 
     @SerializedName("wrapperType")
@@ -14,10 +18,10 @@ public class Result {
     private String mCollectionType;
     @SerializedName("artistId")
     @Expose
-    private Integer mArtistId;
+    private int mArtistId;
     @SerializedName("collectionId")
     @Expose
-    private Integer mCollectionId;
+    private int mCollectionId;
     @SerializedName("artistName")
     @Expose
     private String mArtistName;
@@ -41,13 +45,13 @@ public class Result {
     private String mArtworkUrl100;
     @SerializedName("collectionPrice")
     @Expose
-    private Double mCollectionPrice;
+    private double mCollectionPrice;
     @SerializedName("collectionExplicitness")
     @Expose
     private String mCollectionExplicitness;
     @SerializedName("trackCount")
     @Expose
-    private Integer mTrackCount;
+    private int mTrackCount;
     @SerializedName("copyright")
     @Expose
     private String mCopyright;
@@ -65,7 +69,7 @@ public class Result {
     private String mPrimaryGenreName;
     @SerializedName("amgArtistId")
     @Expose
-    private Integer mAmgArtistId;
+    private int mAmgArtistId;
     @SerializedName("contentAdvisoryRating")
     @Expose
     private String mContentAdvisoryRating;
@@ -77,7 +81,7 @@ public class Result {
     private String mKind;
     @SerializedName("trackId")
     @Expose
-    private Integer mTrackId;
+    private int mTrackId;
     @SerializedName("trackName")
     @Expose
     private String mTrackName;
@@ -95,25 +99,25 @@ public class Result {
     private String mArtworkUrl30;
     @SerializedName("trackPrice")
     @Expose
-    private Double mTrackPrice;
+    private double mTrackPrice;
     @SerializedName("trackExplicitness")
     @Expose
     private String mTrackExplicitness;
     @SerializedName("discCount")
     @Expose
-    private Integer mDiscCount;
+    private int mDiscCount;
     @SerializedName("discNumber")
     @Expose
-    private Integer mDiscNumber;
+    private int mDiscNumber;
     @SerializedName("trackNumber")
     @Expose
-    private Integer mTrackNumber;
+    private int mTrackNumber;
     @SerializedName("trackTimeMillis")
     @Expose
-    private Integer mTrackTimeMillis;
+    private int mTrackTimeMillis;
     @SerializedName("isStreamable")
     @Expose
-    private Boolean mIsStreamable;
+    private boolean mIsStreamable;
 
     public String getWrapperType() {
         return mWrapperType;
@@ -131,19 +135,19 @@ public class Result {
         this.mCollectionType = collectionType;
     }
 
-    public Integer getArtistId() {
+    public int getArtistId() {
         return mArtistId;
     }
 
-    public void setArtistId(Integer artistId) {
+    public void setArtistId(int artistId) {
         this.mArtistId = artistId;
     }
 
-    public Integer getCollectionId() {
+    public int getCollectionId() {
         return mCollectionId;
     }
 
-    public void setCollectionId(Integer collectionId) {
+    public void setCollectionId(int collectionId) {
         this.mCollectionId = collectionId;
     }
 
@@ -203,11 +207,11 @@ public class Result {
         this.mArtworkUrl100 = artworkUrl100;
     }
 
-    public Double getCollectionPrice() {
+    public double getCollectionPrice() {
         return mCollectionPrice;
     }
 
-    public void setCollectionPrice(Double collectionPrice) {
+    public void setCollectionPrice(double collectionPrice) {
         this.mCollectionPrice = collectionPrice;
     }
 
@@ -219,11 +223,11 @@ public class Result {
         this.mCollectionExplicitness = collectionExplicitness;
     }
 
-    public Integer getTrackCount() {
+    public int getTrackCount() {
         return mTrackCount;
     }
 
-    public void setTrackCount(Integer trackCount) {
+    public void setTrackCount(int trackCount) {
         this.mTrackCount = trackCount;
     }
 
@@ -267,11 +271,11 @@ public class Result {
         this.mPrimaryGenreName = primaryGenreName;
     }
 
-    public Integer getAmgArtistId() {
+    public int getAmgArtistId() {
         return mAmgArtistId;
     }
 
-    public void setAmgArtistId(Integer amgArtistId) {
+    public void setAmgArtistId(int amgArtistId) {
         this.mAmgArtistId = amgArtistId;
     }
 
@@ -293,11 +297,11 @@ public class Result {
         this.mKind = kind;
     }
 
-    public Integer getTrackId() {
+    public int getTrackId() {
         return mTrackId;
     }
 
-    public void setTrackId(Integer trackId) {
+    public void setTrackId(int trackId) {
         this.mTrackId = trackId;
     }
 
@@ -341,11 +345,11 @@ public class Result {
         this.mArtworkUrl30 = artworkUrl30;
     }
 
-    public Double getTrackPrice() {
+    public double getTrackPrice() {
         return mTrackPrice;
     }
 
-    public void setTrackPrice(Double trackPrice) {
+    public void setTrackPrice(double trackPrice) {
         this.mTrackPrice = trackPrice;
     }
 
@@ -357,43 +361,43 @@ public class Result {
         this.mTrackExplicitness = trackExplicitness;
     }
 
-    public Integer getDiscCount() {
+    public int getDiscCount() {
         return mDiscCount;
     }
 
-    public void setDiscCount(Integer discCount) {
+    public void setDiscCount(int discCount) {
         this.mDiscCount = discCount;
     }
 
-    public Integer getDiscNumber() {
+    public int getDiscNumber() {
         return mDiscNumber;
     }
 
-    public void setDiscNumber(Integer discNumber) {
+    public void setDiscNumber(int discNumber) {
         this.mDiscNumber = discNumber;
     }
 
-    public Integer getTrackNumber() {
+    public int getTrackNumber() {
         return mTrackNumber;
     }
 
-    public void setTrackNumber(Integer trackNumber) {
+    public void setTrackNumber(int trackNumber) {
         this.mTrackNumber = trackNumber;
     }
 
-    public Integer getTrackTimeMillis() {
+    public int getTrackTimeMillis() {
         return mTrackTimeMillis;
     }
 
-    public void setTrackTimeMillis(Integer trackTimeMillis) {
+    public void setTrackTimeMillis(int trackTimeMillis) {
         this.mTrackTimeMillis = trackTimeMillis;
     }
 
-    public Boolean getIsStreamable() {
+    public boolean getIsStreamable() {
         return mIsStreamable;
     }
 
-    public void setIsStreamable(Boolean isStreamable) {
+    public void setIsStreamable(boolean isStreamable) {
         this.mIsStreamable = isStreamable;
     }
 

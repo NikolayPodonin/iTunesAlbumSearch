@@ -10,6 +10,9 @@ import com.android.podonin.domain.model.ITunesObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Mapper from data layer entities to domain layer models.
+ */
 public class EntityMapper {
     private static final String TYPE_COLLECTION = "collection";
     private static final String TYPE_TRACK = "track";

@@ -1,9 +1,12 @@
 package com.android.podonin.itunesalbumsearch.view;
 
-import com.android.podonin.domain.model.Album;
+import com.android.podonin.itunesalbumsearch.model.AlbumParcel;
+
+import java.util.List;
 
 public interface AlbumsFragmentView extends LoadingView {
-    void showNextAlbum(Album album);
+    void showAlbums(List<AlbumParcel> albums);
+    void showNextAlbum(AlbumParcel album);
     void clearAlbums();
-    void goToDetails(Integer albumId);
+    void goToDetails(int albumId);
 }

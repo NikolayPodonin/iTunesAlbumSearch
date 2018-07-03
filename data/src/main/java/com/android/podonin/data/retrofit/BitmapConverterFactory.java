@@ -1,10 +1,9 @@
-package com.android.podonin.data.repository;
+package com.android.podonin.data.retrofit;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
@@ -14,6 +13,9 @@ import retrofit2.Converter;
 import retrofit2.Converter.Factory;
 import retrofit2.Retrofit;
 
+/**
+ * Custom {@link Converter.Factory} to create {@link Bitmap} objects for Retrofit clients.
+ */
 public class BitmapConverterFactory extends Factory {
 
     private BitmapConverterFactory() {}

@@ -1,16 +1,16 @@
 package com.android.podonin.itunesalbumsearch.view;
 
-import android.graphics.Bitmap;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
-import com.android.podonin.domain.model.Song;
+import com.android.podonin.itunesalbumsearch.model.AlbumParcel;
+import com.android.podonin.itunesalbumsearch.model.SongParcel;
+
+import java.util.List;
 
 
 public interface AlbumDetailsFragmentView extends LoadingView {
-    void showAlbumDetails(@Nullable Bitmap icon, @Nullable String albumName, @Nullable String artistName,
-                          @Nullable String price, @Nullable String currency, @Nullable String releaseDate,
-                          @Nullable String country, @Nullable String copyright);
+    void showAlbumDetails(@NonNull AlbumParcel album);
     void hideAlbumDetails();
-
-    void showNextSong(Song song);
+    void showSongs(List<SongParcel> songs);
+    void showNextSong(SongParcel song);
 }

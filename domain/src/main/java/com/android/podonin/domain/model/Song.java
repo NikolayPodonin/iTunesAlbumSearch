@@ -1,20 +1,22 @@
 package com.android.podonin.domain.model;
 
+/**
+ * Song class (redundant fields are for future).
+ */
 public class Song extends ITunesObject {
     private String mKind;
-    private Integer mTrackId;
+    private int mTrackId;
     private String mTrackName;
     private String mTrackCensoredName;
     private String mTrackViewUrl;
     private String mPreviewUrl;
     private String mArtworkUrl30;
-    private Double mTrackPrice;
+    private double mTrackPrice;
     private String mTrackExplicitness;
-    private Integer mDiscCount;
-    private Integer mDiscNumber;
-    private Integer mTrackNumber;
-    private Integer mTrackTimeMillis;
-    private Boolean mIsStreamable;
+    private int mDiscCount;
+    private int mDiscNumber;
+    private int mTrackNumber;
+    private int mTrackTimeMillis;
 
     public String getKind() {
         return mKind;
@@ -24,11 +26,11 @@ public class Song extends ITunesObject {
         mKind = kind;
     }
 
-    public Integer getTrackId() {
+    public int getTrackId() {
         return mTrackId;
     }
 
-    public void setTrackId(Integer trackId) {
+    public void setTrackId(int trackId) {
         mTrackId = trackId;
     }
 
@@ -72,11 +74,11 @@ public class Song extends ITunesObject {
         mArtworkUrl30 = artworkUrl30;
     }
 
-    public Double getTrackPrice() {
+    public double getTrackPrice() {
         return mTrackPrice;
     }
 
-    public void setTrackPrice(Double trackPrice) {
+    public void setTrackPrice(double trackPrice) {
         mTrackPrice = trackPrice;
     }
 
@@ -88,43 +90,36 @@ public class Song extends ITunesObject {
         mTrackExplicitness = trackExplicitness;
     }
 
-    public Integer getDiscCount() {
+    public int getDiscCount() {
         return mDiscCount;
     }
 
-    public void setDiscCount(Integer discCount) {
+    public void setDiscCount(int discCount) {
         mDiscCount = discCount;
     }
 
-    public Integer getDiscNumber() {
+    public int getDiscNumber() {
         return mDiscNumber;
     }
 
-    public void setDiscNumber(Integer discNumber) {
+    public void setDiscNumber(int discNumber) {
         mDiscNumber = discNumber;
     }
 
-    public Integer getTrackNumber() {
+    public int getTrackNumber() {
         return mTrackNumber;
     }
 
-    public void setTrackNumber(Integer trackNumber) {
+    public void setTrackNumber(int trackNumber) {
         mTrackNumber = trackNumber;
     }
 
-    public Integer getTrackTimeMillis() {
+    public int getTrackTimeMillis() {
         return mTrackTimeMillis;
     }
 
-    public void setTrackTimeMillis(Integer trackTimeMillis) {
+    public void setTrackTimeMillis(int trackTimeMillis) {
         mTrackTimeMillis = trackTimeMillis;
     }
 
-    public Boolean getStreamable() {
-        return mIsStreamable;
-    }
-
-    public void setStreamable(Boolean streamable) {
-        mIsStreamable = streamable;
-    }
 }

@@ -4,4 +4,7 @@
     <string name="dollar">$</string>
     <string name="no_items">There is no items</string>
     <string name="divider">" | "</string>
+    <string name="connection_error">Connection Error</string>
+    <string name="http_error">Http Error</string>
+    <string name="unexpected_error">Something wrong!</string>
 </resources>

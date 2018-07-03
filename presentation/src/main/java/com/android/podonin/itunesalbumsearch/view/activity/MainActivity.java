@@ -1,28 +1,31 @@
 package com.android.podonin.itunesalbumsearch.view.activity;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.android.podonin.itunesalbumsearch.R;
 import com.android.podonin.itunesalbumsearch.navigation.FragmentNavigator;
-import com.android.podonin.itunesalbumsearch.presenter.ContainerActivityPresenter;
-import com.android.podonin.itunesalbumsearch.view.ContainerActivityView;
+import com.android.podonin.itunesalbumsearch.presenter.MainActivityPresenter;
+import com.android.podonin.itunesalbumsearch.view.MainActivityView;
 
-public class ContainerActivity extends AppCompatActivity
-        implements ContainerActivityView {
+public class MainActivity extends AppCompatActivity
+        implements MainActivityView {
 
-    private ContainerActivityPresenter mActivityPresenter;
+    private MainActivityPresenter mActivityPresenter;
     private FragmentNavigator mFragmentNavigator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_container);
+        setContentView(R.layout.activity_main);
 
-        mActivityPresenter = new ContainerActivityPresenter(this);
+        mActivityPresenter = new MainActivityPresenter(this);
         mFragmentNavigator = new FragmentNavigator(this);
 
-        mActivityPresenter.dispatchCreate();
+        if (savedInstanceState == null) {
+            mActivityPresenter.dispatchCreate();
+        }
     }
 
     @Override
@@ -36,6 +39,7 @@ public class ContainerActivity extends AppCompatActivity
         mFragmentNavigator.showAlbumsFragment();
     }
 
+    @Nullable
     public FragmentNavigator getFragmentNavigator() {
         return mFragmentNavigator;
     }

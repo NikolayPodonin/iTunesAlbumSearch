@@ -12,6 +12,9 @@ import com.android.podonin.itunesalbumsearch.view.fragment.AlbumsFragment;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Simple Navigator between fragments.
+ */
 public class FragmentNavigator {
     private WeakReference<AppCompatActivity> mActivityWeakReference;
 
@@ -48,7 +51,7 @@ public class FragmentNavigator {
         showFragment(AlbumsFragment.newInstance());
     }
 
-    public void showAlbumDetailsFragment(@NonNull Integer albumId) {
+    public void showAlbumDetailsFragment(@NonNull int albumId) {
         showFragment(AlbumDetailsFragment.newInstance(albumId));
     }
 }
